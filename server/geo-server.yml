@@ -1,0 +1,45 @@
+services:
+  app:
+    build:
+      context: ./app
+    depends_on:
+      - postgis
+    restart: always
+    networks:
+      - frontend
+      - backend
+      - default
+    ports:
+      - "8080:8080"
+
+  postgis:
+    image: moovida/gss:v3.0
+    restart: always
+    volumes:
+      - ${WORKSPACE}:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=test
+      - POSTGRES_PASS=test
+      - POSTGRES_DBNAME=test
+      - ALLOW_IP_RANGE=0.0.0.0/0 
+      - JAVA_OPTS="-Xms1256m -Xmx4g"      
+    networks:
+      - backend
+    ports:
+      - "5432:5432"
+
+    #command:  bash -c "java -Xmx1g -jar gss-backbone-0.1.0.jar /home/gssworkspace testPwd jdbc:postgresql://localhost:5432/test"
+
+networks:
+  frontend:
+    driver: bridge
+    ipam:
+      config: 
+        - subnet: 192.168.10.0/24
+
+  backend:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.20.0/24
+
