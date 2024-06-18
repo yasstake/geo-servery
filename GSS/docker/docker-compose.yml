@@ -1,6 +1,6 @@
 services:
   webapp:
-    image: moovida/gss-docker:4.9
+    build: ./app
     container_name: gss-docker
     ports:
       - 80:80
