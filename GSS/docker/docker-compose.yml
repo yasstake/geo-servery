@@ -25,6 +25,7 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt
     networks:
       - gss_network
+    restart: always
 
   database:
     image: postgis/postgis:15-3.3
@@ -41,6 +42,7 @@ services:
       - gss_network
     volumes:
      - ${GSS_POSTGRESFOLDER}:/var/lib/postgresql/data
+    restart: always
 
 networks:
   gss_network:
