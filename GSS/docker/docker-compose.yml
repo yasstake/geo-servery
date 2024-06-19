@@ -22,7 +22,7 @@ services:
     volumes:
       - ${GSS_MEDIAFOLDER}:/basefolder/media
       - ${GSS_DYNAMICMIGRATIONSFOLDER}:/basefolder/gss/formlayers/migrations
-      - /etc/letsencrypt/live:/etc/cert
+      - /etc/letsencrypt:/etc/letsencrypt
     networks:
       - gss_network
 
